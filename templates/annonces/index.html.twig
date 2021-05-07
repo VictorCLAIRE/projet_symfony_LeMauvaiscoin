@@ -4,9 +4,10 @@
 
 {% block body %}
     <h1>Toutes les annonces</h1>
-
         <tbody>
+        {%  if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
         <a class="btn btn-info" href="{{ path('annonces_new') }}">Create new</a>
+        {% endif %}
         <div class="row">
             {% for annonce in annoncespagination %}
                 <div class="col-4">
@@ -22,15 +23,23 @@
                             <li class="list-group-item">{{ annonce.descriptionAnnonce }}</li>
                             <li class="list-group-item">{{ annonce.prixAnnonce }}</li>
                             <li class="list-group-item">{{ annonce.photoAnnonce }}</li>
-                            <li class="list-group-item"><a class="btn btn-info" href="{{ path('annonces_show', {'id': annonce.id}) }}">show</a></li>
-                            <li class="list-group-item"><a class="btn btn-info" href="{{ path('annonces_edit', {'id': annonce.id}) }}">edit</a></li>
+                            <li class="list-group-item">
+                                <a class="btn btn-info" href="{{ path('annonces_show', {'id': annonce.id}) }}">Détails</a>
+                                <a class="btn btn-info" href="{{ path('ajouter_panier', {'id': annonce.id}) }}">Ajouter au panier</a>
+                                {%  if is_granted('ROLE_ADMIN') %}
+                                    <a class="btn btn-info" href="{{ path('annonces_edit', {'id': annonce.id}) }}">Modifier</a>
+                                {%  endif %}
+                            </li>
+
                         </ul>
                     </div>
                 </div>
             {% endfor %}
         </div>
-        <div class="navigation">
-            {{ knp_pagination_render(annoncespagination) }}
+        <div class="text-center">
+            <div class="navigation te">
+                {{ knp_pagination_render(annoncespagination) }}
+            </div>
         </div>
         </tbody>
 

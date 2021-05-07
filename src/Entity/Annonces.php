@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\AnnoncesRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity(repositoryClass=AnnoncesRepository::class)
  */
@@ -49,6 +50,11 @@ class Annonces
      */
     private $region_annonce;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="annonces")
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -64,6 +70,9 @@ class Annonces
         $this->nom_annonce = $nom_annonce;
 
         return $this;
+    }
+    public function getSlug(): string{
+        return (new  Slugify ())->slugify -> slugify ( $this->nom_annonce );
     }
 
     public function getDescriptionAnnonce(): ?string
@@ -122,6 +131,18 @@ class Annonces
     public function setRegionAnnonce(regions $region_annonce): self
     {
         $this->region_annonce = $region_annonce;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

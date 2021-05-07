@@ -1,4 +1,31 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-info">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="formulaireNewAnnonce">
+    <div class="contenuFormulaireNewAnnonce">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-4">
+                {{ form_row(form.nom_annonce) }}
+            </div>
+            <div class="col-8">
+                {{ form_row(form.description_annonce) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                {{ form_row(form.prix_annonce) }}
+            </div>
+            <div class="col-3">
+                {{ form_row(form.photo_annonce) }}
+            </div>
+            <div class="col-3">
+                {{ form_row(form.categorie_annonce) }}
+            </div>
+            <div class="col-3">
+                {{ form_row(form.region_annonce) }}
+            </div>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-info btn-lg btn-block">{{ button_label|default('Save') }}</button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>

@@ -12,11 +12,15 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path ('annonces_index') }}">Toutes les annonces</a>
             </li>
+            {%  if is_granted('ROLE_SUPER_ADMIN') %}
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('annonces_new') }}">Nouvelle annonce</a>
+                <a class="nav-link" href="{{ path('mes_annonces') }}">Mes annonces</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Tous les utilisateurs</a>
+                <a class="nav-link" href="{{ path('user_index') }}">Tous les utilisateurs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_ajoutAdmin') }}">Nouvel admin</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('categories_index') }}">Toutes les catégories</a>
@@ -25,14 +29,68 @@
                 <a class="nav-link" href="{{ path('categories_new') }}">Nouvelle catégorie</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Insciption</a>
+                <a class="nav-link" href="{{ path('superadmin') }}">Tableau de bord</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Déconnexion</a>
+                <a class="nav-link" href="">{{ app.user.email }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('panier') }}">Mon panier</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+            </li>
+            {%  elseif is_granted('ROLE_ADMIN') %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('mes_annonces') }}">Mes annonces</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('user_index') }}">Tous les utilisateurs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('categories_index') }}">Toutes les catégories</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('categories_new') }}">Nouvelle catégorie</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('admin') }}">Tableau de bord</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('panier') }}">Mon panier</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">{{ app.user.email }}</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+            </li>
+            {% elseif is_granted('ROLE_USER') %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('annonces_new') }}">Nouvelle annonce</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('mes_annonces') }}">Mes annonces</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">{{  app.user.email }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('panier') }}">Mon panier</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+            </li>
+            {% else%}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_inscription') }}">Insciption</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
             </li>
+            {% endif %}
+
         </ul>
     </div>
 </nav>

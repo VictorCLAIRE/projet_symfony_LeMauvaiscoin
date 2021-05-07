@@ -3,13 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Annonces;
+use App\Entity\User;
 use App\Form\AnnoncesType;
 use App\Repository\AnnoncesRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
+
 
 /**
  * @Route("/annonces")
@@ -29,8 +33,22 @@ class AnnoncesController extends AbstractController
             'annoncespagination' =>$pagination ,
         ]);
     }
+    /**
+     * @IsGranted("ROLE_USER")
+     * @Route("/mesAnnonces", name="mes_annonces", methods={"GET"})
+     */
+    public function mesAnnonces(AnnoncesRepository $annoncesRepository, Request $request, PaginatorInterface $paginator): Response
+    {
+        $pagination = $paginator->paginate(
+            $annoncesRepository->findAll(),
+        );
+        return $this->render('annonces/mesAnnonces.html.twig', [
+            'annoncespagination' =>$pagination ,
+        ]);
+    }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/new", name="annonces_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -68,6 +86,7 @@ class AnnoncesController extends AbstractController
     }
 
     /**
+     *
      * @Route("/{id}", name="annonces_show", methods={"GET"})
      */
     public function show(Annonces $annonce): Response
@@ -78,6 +97,7 @@ class AnnoncesController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/{id}/edit", name="annonces_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Annonces $annonce): Response
@@ -113,6 +133,7 @@ class AnnoncesController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/{id}", name="annonces_delete", methods={"POST"})
      */
     public function delete(Request $request, Annonces $annonce): Response

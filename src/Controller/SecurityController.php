@@ -12,27 +12,18 @@ use App\Entity\User;
 
 class SecurityController extends AbstractController
 {
-    /**
-     * @Route("/inscription", name="app_inscription")
-     */
-    public function registration(){
-        $user = new user();
-        $formInscription = $this->createForm(RegistrationType::class, $user);
-
-        return $this->render('security/registration.html.twig',[
-            'formInscription'=> $formInscription->createView()
-        ]);
-    }
 
 
     /**
      * @Route("/login", name="app_login")
+     * @param AuthenticationUtils $authenticationUtils
+     * @return Response
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+        if ($this->getUser()) {
+            return $this->redirectToRoute('');
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre panier{% endblock %}
+
+{% block body %}
+    <h1>Votre panier!</h1>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Produit</th>
+            <th scope="col">Prix</th>
+            <th scope="col">Quantité</th>
+            <th scope="col">Total</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for element in dataPanier %}
+            <tr>
+                <th scope="row">{{ element.annonce.nomAnnonce }}</th>
+                <td>{{ element.annonce.prixAnnonce }} €</td>
+                <td>{{ element.quantite }}</td>
+                <td>{{ element.quantite * element.annonce.prixAnnonce }} €</td>
+                <td>
+                    <a href="{{ path('ajouter_panier',{id:element.annonce.id}) }}" class="btn btn-outline-success">Ajouter un produit</a>
+                    <a href="{{ path('enlever_panier',{id:element.annonce.id}) }}" class="btn btn-outline-warning">Enlever le produit</a>
+                    <a href="{{ path('enlever_produit',{id:element.annonce.id}) }}" class="btn btn-outline-danger">Supprimer le produit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td class="text-danger">Votre panier est vide</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td class="text-danger">{{ total }}</td>
+            <td>
+                <a href="{{ path('vider_panier') }}" class="btn btn-outline-danger">Vider le panier</a>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+{% endblock %}
+
