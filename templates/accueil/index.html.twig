@@ -4,4 +4,41 @@
 
 {% block body %}
 <h1>Bienvenue sur Le Mauvais Coin</h1>
+
+    <div class="formulaireRecherce">
+        <div class="contenuFormulaireRecherche">
+            {{ form(formRecherche) }}
+        </div>
+    </div>
+
+    <div class="row">
+        {% for annonce in annoncesrecherches %}
+            <div class="col-4">
+                <div class="card border-dark mb-3" style="max-width: 20rem;">
+                    <div class="card-header">{{ annonce.nomAnnonce }}</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div>
+                                <img class="d-block user-select-none m-2 " src="/img/{{ annonce.photoAnnonce }}" width="150" height="150" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
+                            </div>
+                        </li>
+                        <li class="list-group-item">{{ annonce.id }}</li>
+                        <li class="list-group-item">{{ annonce.descriptionAnnonce }}</li>
+                        <li class="list-group-item">{{ annonce.prixAnnonce }}</li>
+                        <li class="list-group-item">{{ annonce.photoAnnonce }}</li>
+                        <li class="list-group-item">
+                            <a class="btn btn-info" href="{{ path('annonces_show', {'id': annonce.id}) }}">Détails</a>
+                            <a class="btn btn-info" href="{{ path('ajouter_panier', {'id': annonce.id}) }}">Ajouter au panier</a>
+                            {%  if is_granted('ROLE_ADMIN') %}
+                                <a class="btn btn-info" href="{{ path('annonces_edit', {'id': annonce.id}) }}">Modifier</a>
+                            {%  endif %}
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
 {% endblock %}

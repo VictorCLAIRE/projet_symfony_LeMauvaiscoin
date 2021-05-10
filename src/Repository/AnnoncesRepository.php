@@ -34,6 +34,43 @@ class AnnoncesRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function  AnnoncesRecherche( $cat, $region, $prix, $prixMin, $prixMax){
+
+        $query = $this->createQueryBuilder('a')
+            ->orderBy('a.id','DESC');
+
+        if($cat){
+            $query = $query
+                ->andWhere('a.categorie_annonce = :categorieid')
+                ->setParameter('categorieid', $cat);
+        }
+        if($region){
+            $query = $query
+                ->andWhere('a.region_annonce = :regionid')
+                ->setParameter('regionid', $region);
+        }
+        if($prix){
+            $query = $query
+                ->andWhere('a.prix_annonce BETWEEN :prixMin AND :prixMax')
+                ->setParameter('prixMin', $prixMin)
+                ->setParameter('prixMax', $prixMax);
+        }
+        if($prix){
+            $query = $query
+                ->andWhere('a.prix_annonce > :prixMin')
+                ->setParameter('prixMin', $prixMin);
+
+        }
+        if($prix){
+            $query = $query
+                ->andWhere('a.prix_annonce < :prixMax')
+                ->setParameter('prixMax', $prixMax);
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
+
     // /**
     //  * @return Annonces[] Returns an array of Annonces objects
     //  */

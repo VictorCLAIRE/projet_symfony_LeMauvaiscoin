@@ -3,8 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Annonces;
+use App\Entity\Categories;
+use App\Entity\Regions;
+use App\Form\RechercheType;
 use App\Repository\AnnoncesRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,10 +21,54 @@ class AccueilController extends AbstractController
     /**
      * @Route("/accueil", name="accueil")
      */
-    public function index(): Response
+    public function index(Request $request, AnnoncesRepository $annoncesRepository): Response
     {
+        $annonces= new Annonces();
+        $prixMin = '';
+        $prixMax = '';
+        $prix = $annonces->getPrixAnnonce();
+        $cat = $annonces->getCategorieAnnonce();
+        $region = $annonces->getRegionAnnonce();
+
+        $formRecherche = $this->createFormBuilder()
+            ->add('categorie_annonce',EntityType::class,[
+                'class'=>Categories::class,
+                'choice_label'=>'name_categorie',
+                'required'=>false
+            ])
+            ->add('region_annonce',EntityType::class,[
+                'class'=>Regions::class,
+                'choice_label'=>'name_region',
+                'required'=>false
+            ])
+            ->add('prixMin',NumberType::class,[
+                'label'=>'PrixMin',
+                'required'=> false
+            ])
+            ->add('prixMax',NumberType::class,[
+                'label'=>'PrixMax',
+                'required'=> false
+            ])
+            ->add('Recherche', SubmitType::class,[
+                'label'=>'Rechercher'
+            ])
+            ->getForm();
+
+        $formRecherche->handleRequest($request);
+
+        if($request->isMethod('POST') && $formRecherche->isSubmitted() && $formRecherche->isValid()){
+            $data = $formRecherche->getData();
+            $prixMin = $data['prixMin'];
+            $prixMax = $data['prixMax'];
+            $cat = $data['categorie_annonce'];
+            $region = $data['region_annonce'];
+        }
+
         return $this->render('accueil/index.html.twig', [
-            'controller_name' => 'AccueilController',
+            'controller_name'=>'AnnonceController',
+            'formRecherche' => $formRecherche->createView(),
+            'annoncesrecherches'=> $annoncesRepository->AnnoncesRecherche($prixMin, $prixMax,$prix, $cat, $region )
+
         ]);
     }
     /**
