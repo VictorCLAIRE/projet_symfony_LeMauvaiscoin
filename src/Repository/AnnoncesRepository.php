@@ -34,7 +34,7 @@ class AnnoncesRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function  AnnoncesRecherche( $cat, $region, $prix, $prixMin, $prixMax){
+    public function  AnnoncesRecherche($cat,$region, $prixMin, $prixMax,$prix){
 
         $query = $this->createQueryBuilder('a')
             ->orderBy('a.id','DESC');
@@ -55,13 +55,13 @@ class AnnoncesRepository extends ServiceEntityRepository
                 ->setParameter('prixMin', $prixMin)
                 ->setParameter('prixMax', $prixMax);
         }
-        if($prix){
+        if($prixMin){
             $query = $query
                 ->andWhere('a.prix_annonce > :prixMin')
                 ->setParameter('prixMin', $prixMin);
 
         }
-        if($prix){
+        if($prixMax){
             $query = $query
                 ->andWhere('a.prix_annonce < :prixMax')
                 ->setParameter('prixMax', $prixMax);

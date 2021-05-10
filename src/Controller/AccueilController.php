@@ -67,7 +67,7 @@ class AccueilController extends AbstractController
         return $this->render('accueil/index.html.twig', [
             'controller_name'=>'AnnonceController',
             'formRecherche' => $formRecherche->createView(),
-            'annoncesrecherches'=> $annoncesRepository->AnnoncesRecherche($prixMin, $prixMax,$prix, $cat, $region )
+            'annoncesrecherches'=> $annoncesRepository->AnnoncesRecherche($cat,$region, $prixMin, $prixMax,$prix)
 
         ]);
     }

@@ -22,7 +22,6 @@
                             <li class="list-group-item">{{ annonce.id }}</li>
                             <li class="list-group-item">{{ annonce.descriptionAnnonce }}</li>
                             <li class="list-group-item">{{ annonce.prixAnnonce }}</li>
-                            <li class="list-group-item">{{ annonce.photoAnnonce }}</li>
                             <li class="list-group-item">
                                 <a class="btn btn-info" href="{{ path('annonces_show', {'id': annonce.id}) }}">Détails</a>
                                 <a class="btn btn-info" href="{{ path('ajouter_panier', {'id': annonce.id}) }}">Ajouter au panier</a>
