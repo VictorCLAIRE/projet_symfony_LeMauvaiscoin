@@ -40,7 +40,7 @@ class AnnoncesController extends AbstractController
     public function mesAnnonces(AnnoncesRepository $annoncesRepository, Request $request, PaginatorInterface $paginator): Response
     {
         $pagination = $paginator->paginate(
-            $annoncesRepository->findAll(),
+            $annoncesRepository->findAll()
         );
         return $this->render('annonces/mesAnnonces.html.twig', [
             'annoncespagination' =>$pagination ,
