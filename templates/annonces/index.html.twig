@@ -19,9 +19,8 @@
                                     <img class="d-block user-select-none m-2 " src="/img/{{ annonce.photoAnnonce }}" width="150" height="150" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
                                 </div>
                             </li>
-                            <li class="list-group-item">{{ annonce.id }}</li>
-                            <li class="list-group-item">{{ annonce.descriptionAnnonce }}</li>
-                            <li class="list-group-item">{{ annonce.prixAnnonce }}</li>
+                            <li class="list-group-item">Description : {{ annonce.descriptionAnnonce }}</li>
+                            <li class="list-group-item">Prix : {{ annonce.prixAnnonce }} €</li>
                             <li class="list-group-item">
                                 <a class="btn btn-info" href="{{ path('annonces_show', {'id': annonce.id}) }}">Détails</a>
                                 <a class="btn btn-info" href="{{ path('ajouter_panier', {'id': annonce.id}) }}">Ajouter au panier</a>

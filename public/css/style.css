@@ -34,5 +34,15 @@ footer{
 .formulaireLogin{
     text-align: center;
     width: 500px;
-
+}
+.contenuFormulaireRecherche{
+    margin: auto;
+    padding: 5px;
+    background-color: #cfcfcf;
+}
+.formulaireRecherce{
+    border: solid #5a5a5a 1px;
+    text-align: center;
+    margin: 5px;
+    wi
 }
