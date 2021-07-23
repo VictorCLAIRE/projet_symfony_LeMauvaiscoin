@@ -19,8 +19,8 @@
                 <td>{{ region.id }}</td>
                 <td>{{ region.nameRegion }}</td>
                 <td>
-                    <a class="btn btn-info" href="{{ path('regions_show', {'id': region.id}) }}">show</a>
-                    <a class="btn btn-info" href="{{ path('regions_edit', {'id': region.id}) }}">edit</a>
+                    <a class="btn btn-info m-1" href="{{ path('regions_show', {'id': region.id}) }}">show</a>
+                    <a class="btn btn-info m-1" href="{{ path('regions_edit', {'id': region.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +31,5 @@
         </tbody>
     </table>
 
-    <a class="btn btn-info" href="{{ path('regions_new') }}">Create new</a>
+    <a class="btn btn-info m-1" href="{{ path('regions_new') }}">Create new</a>
 {% endblock %}

@@ -7,17 +7,17 @@
 
     <tbody>
     {%  if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
-        <a class="btn btn-info" href="{{ path('annonces_new') }}">Create new</a>
+        <a class="btn btn-info m-1" href="{{ path('annonces_new') }}">Create new</a>
     {% endif %}
     <div class="row">
         {% for annonce in app.user.annonces %}
-            <div class="col-4">
+            <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="card border-dark mb-3" style="max-width: 20rem;">
                     <div class="card-header">{{ annonce.nomAnnonce }}</div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             <div>
-                                <img class="d-block user-select-none m-2 " src="/img/{{ annonce.photoAnnonce }}" width="150" height="150" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
+                                <img class="m-2 " src="../../public/img/{{ annonce.photoAnnonce }}" width="150" height="150" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" >
                             </div>
                         </li>
                         <li class="list-group-item">{{ annonce.id }}</li>
@@ -25,9 +25,9 @@
                         <li class="list-group-item">{{ annonce.prixAnnonce }}</li>
                         <li class="list-group-item">{{ annonce.photoAnnonce }}</li>
                         <li class="list-group-item">
-                            <a class="btn btn-info" href="{{ path('annonces_show', {'id': annonce.id}) }}">Détails</a>
+                            <a class="btn btn-info m-1" href="{{ path('annonces_show', {'id': annonce.id}) }}">Détails</a>
                             {%  if is_granted('ROLE_ADMIN') %}
-                                <a class="btn btn-info" href="{{ path('annonces_edit', {'id': annonce.id}) }}">Modifier</a>
+                                <a class="btn btn-info m-1" href="{{ path('annonces_edit', {'id': annonce.id}) }}">Modifier</a>
                             {%  endif %}
                         </li>
 
